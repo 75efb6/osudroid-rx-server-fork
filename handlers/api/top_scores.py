@@ -7,11 +7,12 @@ from objects.player import Player
 from objects.score import Score
 from handlers.response import ApiResponse
 from .models.score import ScoreModel
+from .models.responses import ScoreListSuccessResponse
 
 router = APIRouter()
 
 
-@router.get("")
+@router.get("", response_model=ScoreListSuccessResponse)
 async def get_scores(
     id: int = Query(...),
     limit: int = Query(100),

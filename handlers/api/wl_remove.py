@@ -6,12 +6,13 @@ from objects import glob
 from objects.beatmap import Beatmap, RankedStatus
 from handlers.response import ApiResponse
 from .models.beatmap import BeatmapModel
+from .models.responses import BeatmapSuccessResponse
 import utils
 
 router = APIRouter()
 
 
-@router.get("")
+@router.get("", response_model=BeatmapSuccessResponse)
 async def whitelist_remove(
     key: str = Query(...),
     md5: Optional[str] = Query(None),

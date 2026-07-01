@@ -7,6 +7,7 @@ from objects.score import Score
 import utils.pp
 import utils
 from .models.score import ScoreModel
+from .models.responses import ScoreSuccessResponse
 from handlers.response import ApiResponse
 
 router = APIRouter()
@@ -63,7 +64,7 @@ async def calculate(
     return ApiResponse.ok(ScoreModel(**result))
 
 
-@router.get("")
+@router.get("", response_model=ScoreSuccessResponse)
 async def calculate_get(
     request: Request,
     md5: Optional[str] = Query(None),
@@ -76,7 +77,7 @@ async def calculate_get(
     return await calculate(md5, bid, acc, miss, combo, mods)
 
 
-@router.post("")
+@router.post("", response_model=ScoreSuccessResponse)
 async def calculate_post(request: Request):
     form = await request.form()
     md5 = form.get("md5")

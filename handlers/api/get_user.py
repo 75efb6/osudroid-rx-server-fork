@@ -4,13 +4,14 @@ from fastapi import APIRouter, Query
 
 from objects import glob
 from .models.player import PlayerModel
+from .models.responses import PlayerSuccessResponse
 from objects.player import Player
 from handlers.response import ApiResponse
 
 router = APIRouter()
 
 
-@router.get("")
+@router.get("", response_model=PlayerSuccessResponse)
 async def get_user(
     id: Optional[int] = Query(None),
     username: Optional[str] = Query(None),

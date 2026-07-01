@@ -4,11 +4,12 @@ from objects import glob
 from objects.score import Score
 from handlers.response import ApiResponse
 from .models.score import ScoreModel
+from .models.responses import ScoreSuccessResponse
 
 router = APIRouter()
 
 
-@router.get("")
+@router.get("", response_model=ScoreSuccessResponse)
 async def recent(
     id: int = Query(...),
     offset: int = Query(0),

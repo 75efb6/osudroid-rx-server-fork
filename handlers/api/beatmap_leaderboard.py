@@ -3,6 +3,7 @@ from typing import Optional
 from fastapi import APIRouter, Query
 
 from handlers.api.models.score import ScoreModel
+from handlers.api.models.responses import ScoreListSuccessResponse
 from objects import glob
 from objects.beatmap import Beatmap
 from handlers.response import ApiResponse
@@ -11,7 +12,7 @@ from objects.score import Score
 router = APIRouter()
 
 
-@router.get("")
+@router.get("", response_model=ScoreListSuccessResponse)
 async def beatmap_leaderboard(
     md5: Optional[str] = Query(None),
     bid: Optional[int] = Query(None),

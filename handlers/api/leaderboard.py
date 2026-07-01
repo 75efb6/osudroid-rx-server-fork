@@ -6,11 +6,12 @@ from fastapi import APIRouter, Query
 from objects import glob
 from handlers.response import ApiResponse
 from .models.player import PlayerModel
+from .models.responses import PlayerListSuccessResponse
 
 router = APIRouter()
 
 
-@router.get("")
+@router.get("", response_model=PlayerListSuccessResponse)
 async def leaderboard(
     type: str = Query("pp"),
     country: Optional[str] = Query(None),

@@ -7,6 +7,7 @@ from pydantic_core import PydanticCustomError
 from objects.beatmap import Beatmap
 from handlers.response import ApiResponse
 from .models.beatmap import BeatmapModel
+from .models.responses import BeatmapSuccessResponse
 
 router = APIRouter()
 
@@ -26,7 +27,7 @@ class BeatmapRequest(BaseModel):
         return values
 
 
-@router.get("")
+@router.get("", response_model=BeatmapSuccessResponse)
 async def beatmap(
     md5: Optional[str] = Query(None),
     bid: Optional[int] = Query(None),
