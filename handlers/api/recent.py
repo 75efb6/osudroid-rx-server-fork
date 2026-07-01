@@ -8,7 +8,7 @@ from .models.score import ScoreModel
 router = APIRouter()
 
 
-@router.get("/")
+@router.get("")
 async def recent(
     id: int = Query(...),
     offset: int = Query(0),

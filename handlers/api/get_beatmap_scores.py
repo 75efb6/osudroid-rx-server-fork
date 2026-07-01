@@ -11,7 +11,7 @@ from objects.score import Score
 router = APIRouter()
 
 
-@router.get("/")
+@router.get("")
 async def get_beatmap_scores(
     md5: Optional[str] = Query(None),
     bid: Optional[int] = Query(None),

@@ -14,7 +14,7 @@ templates = Jinja2Templates(directory="templates")
 php_file = True
 
 
-@router.get("/")
+@router.get("")
 async def profile(request: Request):
     params = request.query_params
     player_id = None
@@ -26,20 +26,14 @@ async def profile(request: Request):
         elif "login_state" in request.cookies:
             player_id = int(request.cookies["login_state"].split("-")[1])
     except (ValueError, TypeError, IndexError):
-        return templates.TemplateResponse(
-            "error.html", {"request": request, "error_message": "Invalid player ID"}
-        )
+        return templates.TemplateResponse(request, "error.html", {"error_message": "Invalid player ID"})
 
     if player_id is None:
-        return templates.TemplateResponse(
-            "error.html", {"request": request, "error_message": "No player ID provided"}
-        )
+        return templates.TemplateResponse(request, "error.html", {"error_message": "No player ID provided"})
 
     p = glob.players.get(id=player_id)
     if not p:
-        return templates.TemplateResponse(
-            "error.html", {"request": request, "error_message": "Player not found"}
-        )
+        return templates.TemplateResponse(request, "error.html", {"error_message": "Player not found"})
 
     player_stats = p.stats.as_json
 
@@ -98,9 +92,9 @@ async def profile(request: Request):
 
     avatar = f"/user/avatar/{player_id}.png"
     return templates.TemplateResponse(
+        request,
         "profile.html",
         {
-            "request": request,
             "player_stats": player_stats,
             "recent_scores": recent_scores,
             "top_scores": top_scores,

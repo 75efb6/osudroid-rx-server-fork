@@ -6,7 +6,7 @@ from objects import glob
 router = APIRouter()
 
 
-@router.get("/")
+@router.get("")
 async def get_rooms():
     room_list = []
     for room_info in glob.rooms:

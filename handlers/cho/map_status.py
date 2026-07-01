@@ -5,7 +5,7 @@ from objects import glob
 
 router = APIRouter()
 
-forced_route = "/api/v2/md5/{md5}"
+forced_route = "/api/v2/md5"
 
 
 @router.get("/{md5}")

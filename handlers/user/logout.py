@@ -9,11 +9,8 @@ templates = Jinja2Templates(directory="templates")
 php_file = True
 
 
-@router.get("/")
+@router.get("")
 async def logout(request: Request):
-    response = templates.TemplateResponse(
-        "success.html",
-        {"request": request, "success_message": success_str("Logout successful")},
-    )
+    response = templates.TemplateResponse(request, "success.html", {"success_message": success_str("Logout successful")})
     response.delete_cookie("login_state")
     return response

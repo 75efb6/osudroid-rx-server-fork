@@ -26,7 +26,7 @@ class BeatmapRequest(BaseModel):
         return values
 
 
-@router.get("/")
+@router.get("")
 async def beatmap(
     md5: Optional[str] = Query(None),
     bid: Optional[int] = Query(None),

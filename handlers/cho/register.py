@@ -20,7 +20,7 @@ templates = Jinja2Templates(directory="templates")
 php_file = True
 
 
-@router.api_route("/", methods=["GET", "POST"])
+@router.api_route("", methods=["GET", "POST"])
 async def register(request: Request):
     if request.method == "POST":
         form = await request.form()
@@ -94,10 +94,7 @@ async def register(request: Request):
         p = await Player.from_sql(player_id)
         glob.players.add(p)
 
-        response = templates.TemplateResponse(
-            "success.html",
-            {"request": request, "success_message": success_str("Account Created.")},
-        )
+        response = templates.TemplateResponse(request, "success.html", {"success_message": success_str("Account Created.")})
         username = form["username"]
         response.set_cookie(
             "login_state",
@@ -107,4 +104,4 @@ async def register(request: Request):
 
         return response
 
-    return templates.TemplateResponse("register.html", {"request": request})
+    return templates.TemplateResponse(request, "register.html")

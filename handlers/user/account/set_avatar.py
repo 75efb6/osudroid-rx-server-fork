@@ -15,13 +15,11 @@ def allowed_file(filename):
     return "." in filename and filename.rsplit(".", 1)[1].lower() in allowed_extensions
 
 
-@router.post("/")
+@router.post("")
 async def set_avatar(request: Request):
     auth_cookie = request.cookies.get("login_state")
     if not auth_cookie:
-        return templates.TemplateResponse(
-            "error.html", {"request": request, "error_message": "Not logged in"}
-        )
+        return templates.TemplateResponse(request, "error.html", {"error_message": "Not logged in"})
 
     try:
         username, player_id, auth_hash = auth_cookie.split("-")
@@ -31,35 +29,23 @@ async def set_avatar(request: Request):
             )
             == False
         ):
-            return templates.TemplateResponse(
-                "error.html",
-                {"request": request, "error_message": "Invalid login state"},
-            )
+            return templates.TemplateResponse(request, "error.html", {"error_message": "Invalid login state"})
         player_id = int(player_id)
     except ValueError:
-        return templates.TemplateResponse(
-            "error.html", {"request": request, "error_message": "Invalid login state"}
-        )
+        return templates.TemplateResponse(request, "error.html", {"error_message": "Invalid login state"})
 
     form = await request.form()
 
     if "avatar" not in form:
-        return templates.TemplateResponse(
-            "error.html",
-            {"request": request, "error_message": "No avatar file provided"},
-        )
+        return templates.TemplateResponse(request, "error.html", {"error_message": "No avatar file provided"})
 
     file = form.get("avatar")
     if file.filename == "":
-        return templates.TemplateResponse(
-            "error.html", {"request": request, "error_message": "No selected file"}
-        )
+        return templates.TemplateResponse(request, "error.html", {"error_message": "No selected file"})
 
     p = glob.players.get(username=username)
     if not p or p.id != player_id:
-        return templates.TemplateResponse(
-            "error.html", {"request": request, "error_message": "Player not found"}
-        )
+        return templates.TemplateResponse(request, "error.html", {"error_message": "Player not found"})
 
     if file and allowed_file(file.filename):
         filename = f"{p.id}.png"
@@ -68,15 +54,6 @@ async def set_avatar(request: Request):
         with open(file_path, "wb") as f:
             f.write(contents)
 
-        return templates.TemplateResponse(
-            "success.html",
-            {
-                "request": request,
-                "success_message": "Avatar uploaded successfully",
-            },
-        )
+        return templates.TemplateResponse(request, "success.html", {"success_message": "Avatar uploaded successfully"})
     else:
-        return templates.TemplateResponse(
-            "error.html",
-            {"request": request, "error_message": "Invalid file format"},
-        )
+        return templates.TemplateResponse(request, "error.html", {"error_message": "Invalid file format"})

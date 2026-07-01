@@ -5,7 +5,7 @@ from fastapi.responses import FileResponse
 
 router = APIRouter()
 
-forced_route = "/user/banner/{uid}.png"
+forced_route = "/user/banner"
 
 
 @router.get("/{uid}.png")

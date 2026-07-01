@@ -10,7 +10,7 @@ from handlers.response import ApiResponse
 router = APIRouter()
 
 
-@router.get("/")
+@router.get("")
 async def get_user(
     id: Optional[int] = Query(None),
     username: Optional[str] = Query(None),

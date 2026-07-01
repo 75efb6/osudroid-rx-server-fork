@@ -9,7 +9,7 @@ router = APIRouter()
 php_file = True
 
 
-@router.post("/")
+@router.post("")
 async def upload_replay(request: Request):
     form = await request.form()
 

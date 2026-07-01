@@ -9,6 +9,7 @@ coloredlogs.install(level=logging.INFO, format="[%(levelname)s] %(message)s")
 def load_routers():
     modules = []
     base_dir = os.path.basename(os.path.dirname(__file__))
+    hide_prefixes = ("multi", "cho", "user")
     for root, _, files in os.walk(base_dir):
         for file in files:
             if file == "__init__.py" or not file.endswith(".py"):
@@ -28,6 +29,11 @@ def load_routers():
                     prefix += ".php"
                 if hasattr(module, "forced_route"):
                     prefix = module.forced_route
+
+                if any(h in root for h in hide_prefixes):
+                    for route in router.routes:
+                        if hasattr(route, "include_in_schema"):
+                            route.include_in_schema = False
 
                 logging.info(
                     f"✔ Loaded: {prefix} → Route: {prefix}"

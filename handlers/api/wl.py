@@ -5,7 +5,7 @@ from objects import glob
 router = APIRouter()
 
 
-@router.get("/")
+@router.get("")
 async def whitelist():
     maps = await glob.db.fetchall("SELECT * FROM maps WHERE status = 5")
     return JSONResponse(content=maps)

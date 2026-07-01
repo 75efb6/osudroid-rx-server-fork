@@ -10,7 +10,7 @@ from .models.player import PlayerModel
 router = APIRouter()
 
 
-@router.get("/")
+@router.get("")
 async def leaderboard(
     type: str = Query("pp"),
     country: Optional[str] = Query(None),

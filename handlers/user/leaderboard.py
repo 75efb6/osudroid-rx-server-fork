@@ -8,7 +8,7 @@ router = APIRouter()
 templates = Jinja2Templates(directory="templates")
 
 
-@router.get("/")
+@router.get("")
 async def leaderboard(request: Request):
     sortby = request.query_params.get("sortby", "pp").lower()
     country = request.query_params.get("country", "").upper()
@@ -46,9 +46,9 @@ async def leaderboard(request: Request):
         countries = []
 
     return templates.TemplateResponse(
+        request,
         "leaderboard.html",
         {
-            "request": request,
             "leaderboard": players_stats,
             "country": country if country else None,
             "countries": countries,

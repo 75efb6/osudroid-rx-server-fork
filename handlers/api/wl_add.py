@@ -11,7 +11,7 @@ import utils
 router = APIRouter()
 
 
-@router.get("/")
+@router.get("")
 async def whitelist_add(
     key: str = Query(...),
     md5: Optional[str] = Query(None),

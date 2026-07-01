@@ -5,7 +5,7 @@ from handlers.response import ApiResponse
 router = APIRouter()
 
 
-@router.get("/")
+@router.get("")
 async def get_countries():
     countries = await utils.get_countries()
     return ApiResponse.ok([country for country in countries])

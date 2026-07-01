@@ -67,7 +67,7 @@ async def lifespan(app_instance):
 
 templates = Jinja2Templates(directory="templates")
 
-app = FastAPI(lifespan=lifespan)
+app = FastAPI(lifespan=lifespan, redirect_slashes=False)
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
@@ -90,7 +90,7 @@ async def server_fucked(request: Request, exc: Exception):
     return Failed(f"Server Error: {repr(exc)}")
 
 
-@app.get("/")
+@app.get("/", include_in_schema=False)
 async def index(request: Request):
     players = len(glob.players)
     online = len([_ for _ in glob.players if _.online])
@@ -100,9 +100,9 @@ async def index(request: Request):
     download_link = glob.config.client_link
 
     return templates.TemplateResponse(
+        request,
         "main_page.html",
         {
-            "request": request,
             "players": players,
             "online": online,
             "title": title,

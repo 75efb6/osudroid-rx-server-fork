@@ -7,7 +7,7 @@ from objects.room.utils import read_room_log
 router = APIRouter()
 
 
-@router.get("/")
+@router.get("")
 async def room_history(request: Request):
     room_id = request.query_params.get("id")
     room_log = read_room_log(room_id)

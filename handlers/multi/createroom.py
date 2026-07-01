@@ -12,7 +12,7 @@ from handlers.multi.main_namespace import MultiNamespace
 router = APIRouter()
 
 
-@router.post("/")
+@router.post("")
 async def create_room(request: Request):
     data = await request.json()
     if not data:

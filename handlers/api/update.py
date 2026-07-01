@@ -6,7 +6,7 @@ router = APIRouter()
 php_file = True
 
 
-@router.get("/")
+@router.get("")
 async def send_update():
     data = {
         "version_code": glob.config.client_version_code,

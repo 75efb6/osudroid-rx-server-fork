@@ -7,7 +7,7 @@ from handlers.response import Failed
 
 router = APIRouter()
 
-forced_route = "/api/bestpp/{replay_path}"
+forced_route = "/api/bestpp"
 
 
 @router.get("/{replay_path}")

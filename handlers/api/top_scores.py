@@ -11,7 +11,7 @@ from .models.score import ScoreModel
 router = APIRouter()
 
 
-@router.get("/")
+@router.get("")
 async def get_scores(
     id: int = Query(...),
     limit: int = Query(100),

@@ -8,7 +8,7 @@ router = APIRouter()
 php_file = True
 
 
-@router.post("/")
+@router.post("")
 async def view_score(request: Request):
     form = await request.form()
 

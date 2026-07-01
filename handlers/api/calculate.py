@@ -63,7 +63,7 @@ async def calculate(
     return ApiResponse.ok(ScoreModel(**result))
 
 
-@router.get("/")
+@router.get("")
 async def calculate_get(
     request: Request,
     md5: Optional[str] = Query(None),
@@ -76,7 +76,7 @@ async def calculate_get(
     return await calculate(md5, bid, acc, miss, combo, mods)
 
 
-@router.post("/")
+@router.post("")
 async def calculate_post(request: Request):
     form = await request.form()
     md5 = form.get("md5")

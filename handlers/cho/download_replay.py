@@ -7,7 +7,7 @@ from handlers.response import Failed
 
 router = APIRouter()
 
-forced_route = "/api/upload/{replay_path}"
+forced_route = "/api/upload"
 
 
 @router.get("/{replay_path}")

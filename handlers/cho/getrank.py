@@ -10,7 +10,7 @@ router = APIRouter()
 php_file = True
 
 
-@router.post("/")
+@router.post("")
 async def leaderboard(request: Request):
     form = await request.form()
 

@@ -17,7 +17,7 @@ router = APIRouter()
 php_file = True
 
 
-@router.post("/")
+@router.post("")
 async def submit_play(request: Request):
     form = await request.form()
     if "userID" not in form:
